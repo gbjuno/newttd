@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitortest(unittest.TestCase):
@@ -28,12 +29,13 @@ class NewVisitortest(unittest.TestCase):
         inputbox.send_keys('buy peacock feathers')
 
         #用户输入enter后，页面跳转，页面显示"1: buy peacock feathers"
-        inputbox.send_keys(Keys.Enter)
+        inputbox.send_keys(Keys.ENTER)
         
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-                any(row.text == '1: buy peacock feathers' for row in rows)
+                any(row.text == '1: buy peacock feathers' for row in rows),
+                "New to-do item did not appear in the table"
         )
 
         self.fail('Finish the test')
