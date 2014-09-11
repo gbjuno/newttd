@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
+import time
 
 class NewVisitortest(unittest.TestCase):
 
@@ -35,7 +36,7 @@ class NewVisitortest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
                 any(row.text == '1: buy peacock feathers' for row in rows),
-                "New to-do item did not appear in the table"
+                "New to-do item did not appear in the table -- its text was:\n%s" % (table.text,)
         )
 
         self.fail('Finish the test')
