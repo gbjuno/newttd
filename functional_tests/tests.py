@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
-import time
+from django.test import LiveServerTestCase
 
-class NewVisitortest(unittest.TestCase):
+class NewVisitortest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -20,7 +19,7 @@ class NewVisitortest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         #用户打开网站，localhost:8000
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         #用户发现网站的title以及header上面写着To-Do
         self.assertIn('To-Do',self.browser.title)
     
@@ -48,7 +47,3 @@ class NewVisitortest(unittest.TestCase):
         #用户需要单独的list url
         self.fail('finish the test')
         #用户输入独立的url，能够看到自己之前的to-do项目list
-
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
