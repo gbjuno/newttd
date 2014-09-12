@@ -39,11 +39,17 @@ class NewVisitortest(unittest.TestCase):
                 "New to-do item did not appear in the table -- its text was:\n%s" % (table.text,)
         )
 
-        self.fail('Finish the test')
         #这里仍然有个文本框用于第二个to-do项目的输入，用户继续输入"use peacock feathers to make a fly"
-
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
         #用户输入enter后页面跳转，页面显示两个之前用户输入的to-do项目
-
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: buy peacock feathers', [ row.text for row in rows ])
+        self.assertIn('2: use peacock feathers to make a fly',
+                [row.text for row in rows]
+        )
         #用户需要单独的list url
 
         #用户输入独立的url，能够看到自己之前的to-do项目list
